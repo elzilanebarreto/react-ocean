@@ -1,18 +1,40 @@
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 function Starlink() {
-  axios.post("https://api.spacexdata.com/v4/starlink/query", {
-      query: {},
-      options: { limit: 10 },
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
 
-  return <h1>Lista de Satélites Starlink</h1>;
+  const [satelites, setSatelites] = useState([]);
+
+  useEffect(() => {
+
+    const fetchSatelites = async () => {
+      const response = await axios.post("https://api.spacexdata.com/v4/starlink/query", 
+      {
+        "query": {},
+        "options": { limit: 15 },
+      });
+      
+      setSatelites(response.data.docs)
+      console.log(response.data)
+    }
+    fetchSatelites();
+    
+  },[])
+
+
+  return( 
+    <>
+      <h1>Lista de Satélites Starlink. Total: {satelites.length}</h1>
+
+      <ul>
+        {satelites.map((sat) => (
+          <li key={sat.id}>{sat.spaceTrack.OBJECT_NAME} LAT {sat.latitude}  LONG{sat.longitude}</li>
+        )) }
+      </ul>
+
+      
+    </>
+  );
 }
 
 export default Starlink;

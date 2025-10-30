@@ -7,19 +7,22 @@ function Starlink() {
   const [satelites, setSatelites] = useState([]);
 
   useEffect(() => {
-    const fetchSatelites = async () => {
+    const fetchSatelites = async (pagina) => {
       const response = await axios.post(
         "https://api.spacexdata.com/v4/starlink/query",
         {
           query: {},
-          options: { limit: 100 },
+          options: { 
+            limit: 100,
+            page: pagina 
+          },
         }
       );
 
       setSatelites(response.data.docs);
       console.log(response.data);
     };
-    fetchSatelites();
+    fetchSatelites(2);
   }, []);
 
   const ocean = [-3.0925454075226755, -60.0185281];

@@ -19,7 +19,7 @@ function Starlink() {
         }
       );
 
-      setSatelites(response.data.docs);
+      setSatelites((antigos) => [...antigos, ...response.data.docs]);
       console.log(response.data);
   };
 

@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { MapContainer, TileLayer } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
 function Starlink() {
   const [satelites, setSatelites] = useState([]);
@@ -20,11 +22,14 @@ function Starlink() {
     fetchSatelites();
   }, []);
 
+  const ocean = [-3.0925454075226755, -60.0185281];
+
   return (
     <>
       <h1>Lista de Satélites Starlink. Total: {satelites.length}</h1>
 
-      <ul>
+      {/* Lista das localizações */}
+      {/* <ul>
         {satelites
           .filter((sat) => sat.latitude && sat.longitude)
           .map((sat) => (
@@ -33,7 +38,17 @@ function Starlink() {
               {sat.longitude}
             </li>
           ))}
-      </ul>
+      </ul> */}
+
+      {/* Mapa */}
+      <MapContainer
+        center={ocean}
+        zoom={17}
+        scrollWheelZoom={false}
+        style={{ height: "70vh" }}
+      >
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      </MapContainer>
     </>
   );
 }

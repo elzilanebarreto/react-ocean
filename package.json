@@ -1,5 +1,5 @@
 {
-  "name": "parte-i",
+  "name": "ocean2025_10_29",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "axios": "^1.13.1",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "leaflet": "^1.9.4",
+    "react": "^19.0.0-rc.1",
+    "react-dom": "^19.0.0-rc.1",
+    "react-leaflet": "^5.0.0-rc.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

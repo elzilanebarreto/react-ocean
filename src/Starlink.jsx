@@ -5,9 +5,9 @@ import "leaflet/dist/leaflet.css";
 
 function Starlink() {
   const [satelites, setSatelites] = useState([]);
+  const [paginaAtual, setPaginaAtual] = useState(1);
 
-  useEffect(() => {
-    const fetchSatelites = async (pagina) => {
+  const fetchSatelites = async (pagina) => {
       const response = await axios.post(
         "https://api.spacexdata.com/v4/starlink/query",
         {
@@ -21,11 +21,18 @@ function Starlink() {
 
       setSatelites(response.data.docs);
       console.log(response.data);
-    };
-    fetchSatelites(2);
+  };
+
+  useEffect(() => {
+    fetchSatelites();
   }, []);
 
   const ocean = [-3.0925454075226755, -60.0185281];
+
+  const carregarProximaPagina = () => {
+    setPaginaAtual(paginaAtual + 1);
+    fetchSatelites(paginaAtual);
+  }
 
   return (
     <>
@@ -59,6 +66,9 @@ function Starlink() {
             </Marker>
           ))}
       </MapContainer>
+
+      <h3>Página Atual: {paginaAtual}</h3>
+      <button onClick={carregarProximaPagina}>Próxima Página</button>
     </>
   );
 }
